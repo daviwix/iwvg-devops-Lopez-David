@@ -59,6 +59,54 @@ public class Fraction {
         return (double) numerator / denominator;
     }
 
+    public boolean isProper(){
+        return numerator < denominator;
+    }
+
+    public boolean isInProper(){
+        return numerator > denominator;
+    }
+
+    public boolean isEquivalent(Fraction second){
+        return numerator * second.denominator == denominator * second.numerator;
+    }
+
+    public Fraction add(Fraction second){
+        Fraction[] fractions= reduceToCommonDenominator(this,second);
+        return new Fraction(fractions[0].numerator + fractions[1].numerator, fractions[0].denominator);
+    }
+
+    public Fraction multiply(Fraction second){
+        return new Fraction(numerator * second.numerator, denominator * second.denominator);
+    }
+
+    public Fraction divide(Fraction second){
+        return new Fraction(numerator * second.denominator, denominator * second.numerator);
+    }
+
+    private int greatestCommonDivisor(int a, int b) {
+        int temporal;
+        while (b != 0) {
+            temporal = b;
+            b = a % b;
+            a = temporal;
+        }
+        return a;
+    }
+
+    private int leastCommonMultiple(int a, int b) {
+        return (a * b) / greatestCommonDivisor(a, b);
+    }
+
+    private Fraction[] reduceToCommonDenominator(Fraction a, Fraction b){
+        int commonDenominator= leastCommonMultiple(a.denominator,b.denominator);
+        a.numerator = a.numerator * (commonDenominator / a.denominator);
+        a.denominator = commonDenominator;
+        b.numerator = b.numerator * (commonDenominator / b.denominator);
+        b.denominator = commonDenominator;
+        return new Fraction[]{a, b};
+    }
+
     @Override
     public String toString() {
         return "Fraction{" +
