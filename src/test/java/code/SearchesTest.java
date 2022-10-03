@@ -14,4 +14,9 @@ public class SearchesTest {
         assertEquals(0,searchedFraction.getNumerator());
         assertEquals(-360,searchedFraction.getDenominator());
     }
+    @Test
+    void testFindFirstDecimalFractionByUserName() {
+        Double decimal= new Searches().findFirstDecimalFractionByUserName("Paula");
+        assertEquals(1,decimal);
+    }
 }

@@ -22,4 +22,14 @@ public class Searches {
                 });
         return result[0];
     }
+
+    public Double findFirstDecimalFractionByUserName(String name){
+        return new UsersDatabase().findAll()
+                .filter(user -> name.equals(user.getName()))
+                .map(User::getFractions)
+                .findFirst()
+                .get()
+                .get(0)
+                .decimal();
+    }
 }
