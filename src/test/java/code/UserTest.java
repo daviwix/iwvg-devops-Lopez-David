@@ -1,5 +1,6 @@
 package code;
 
+import es.upm.miw.iwvg_devops.code.Fraction;
 import es.upm.miw.iwvg_devops.code.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class UserTest {
+class UserTest {
     private User user;
     @BeforeEach
     void before() {
@@ -35,6 +36,7 @@ public class UserTest {
         user.setName("miguel");
         user.setFamilyName("perez");
         user.setFractions(new ArrayList<>());
+        user.addFraction(new Fraction());
         assertEquals("miguel", user.getName());
         assertEquals("perez", user.getFamilyName());
         assertNotNull(user.getFractions());
