@@ -36,16 +36,8 @@ public class Searches {
 
     public Stream<Double> findDecimalFractionByNegativeSignFraction(){
         return new UsersDatabase().findAll()
-                .map(User::getFractions)
-                .reduce( (initialFractionList, otherFractionList) -> {
-                    List<Fraction> newList= new ArrayList<>();
-                    newList.addAll(initialFractionList);
-                    newList.addAll(otherFractionList);
-                    return newList;
-                })
-                .orElse(new ArrayList<>())
-                .stream()
+                .flatMap(user -> user.getFractions().stream())
                 .map(Fraction::decimal)
-                .filter(number -> number < 0);
+                .filter(result -> result < 0);
     }
 }
