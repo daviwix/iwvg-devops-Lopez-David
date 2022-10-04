@@ -28,4 +28,9 @@ public class SearchesTest {
         Stream<Double> doubleStream = new Searches().findDecimalFractionByNegativeSignFraction();
         assertEquals(List.of(-0.2,-0.5),doubleStream.collect(Collectors.toList()));
     }
+    @Test
+    void testFindDecimalFractionByUserName() {
+        Stream<Double> doubleStream = new Searches().findDecimalFractionByUserName("Oscar");
+        assertEquals(List.of(0.0,1.0,2.0,0.2,-0.5,0.5,1.0),doubleStream.collect(Collectors.toList()));
+    }
 }
