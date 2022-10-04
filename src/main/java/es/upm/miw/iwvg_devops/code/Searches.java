@@ -2,6 +2,7 @@ package es.upm.miw.iwvg_devops.code;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Searches {
 
@@ -21,5 +22,29 @@ public class Searches {
                     result[0] = result[0].multiply(fraction);
                 });
         return result[0];
+    }
+
+    public Double findFirstDecimalFractionByUserName(String name){
+        return new UsersDatabase().findAll()
+                .filter(user -> name.equals(user.getName()))
+                .map(User::getFractions)
+                .findFirst()
+                .get()
+                .get(0)
+                .decimal();
+    }
+
+    public Stream<Double> findDecimalFractionByNegativeSignFraction(){
+        return new UsersDatabase().findAll()
+                .flatMap(user -> user.getFractions().stream())
+                .map(Fraction::decimal)
+                .filter(result -> result < 0);
+    }
+
+    public Stream<Double> findDecimalFractionByUserName(String name){
+        return new UsersDatabase().findAll()
+                .filter(user -> name.equals(user.getName()))
+                .flatMap(user -> user.getFractions().stream())
+                .map(Fraction::decimal);
     }
 }
