@@ -27,6 +27,7 @@ public class Searches {
                 .filter(result -> result < 0);
     }
 
+
     public Stream<Double> findDecimalFractionByUserName(String name){
         return new UsersDatabase().findAll()
                 .filter(user -> name.equals(user.getName()))
