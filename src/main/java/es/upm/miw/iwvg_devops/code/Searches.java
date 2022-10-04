@@ -1,7 +1,5 @@
 package es.upm.miw.iwvg_devops.code;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Searches {
@@ -16,11 +14,10 @@ public class Searches {
     public Double findFirstDecimalFractionByUserName(String name){
         return new UsersDatabase().findAll()
                 .filter(user -> name.equals(user.getName()))
-                .map(User::getFractions)
+                .flatMap(user -> user.getFractions().stream())
+                .map(Fraction::decimal)
                 .findFirst()
-                .get()
-                .get(0)
-                .decimal();
+                .orElse(null);
     }
 
     public Stream<Double> findDecimalFractionByNegativeSignFraction(){
