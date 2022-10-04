@@ -4,19 +4,33 @@ import es.upm.miw.iwvg_devops.code.Fraction;
 import es.upm.miw.iwvg_devops.code.Searches;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchesTest {
 
     @Test
     void testFindFractionMultiplicationByUserFamilyName() {
-        Fraction searchedFraction= new Searches().findFractionMultiplicationByUserFamilyName("Blanco");
+        Fraction searchedFraction = new Searches().findFractionMultiplicationByUserFamilyName("Blanco");
         assertEquals(0,searchedFraction.getNumerator());
         assertEquals(-360,searchedFraction.getDenominator());
     }
     @Test
     void testFindFirstDecimalFractionByUserName() {
-        Double decimal= new Searches().findFirstDecimalFractionByUserName("Paula");
+        Double decimal = new Searches().findFirstDecimalFractionByUserName("Paula");
         assertEquals(1,decimal);
+    }
+    @Test
+    void testFindDecimalFractionByNegativeSignFraction() {
+        Stream<Double> doubleStream = new Searches().findDecimalFractionByNegativeSignFraction();
+        assertEquals(List.of(-0.2,-0.5),doubleStream.collect(Collectors.toList()));
+    }
+    @Test
+    void testFindDecimalFractionByUserName() {
+        Stream<Double> doubleStream = new Searches().findDecimalFractionByUserName("Oscar");
+        assertEquals(List.of(0.0,1.0,2.0,0.2,-0.5,0.5,1.0),doubleStream.collect(Collectors.toList()));
     }
 }
